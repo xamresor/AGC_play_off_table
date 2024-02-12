@@ -17,7 +17,7 @@ class PlayDivisionGamesTest extends TestCase
     public function test_division_game(): void
     {
         $division = Team::DIVISION_LIST[0];
-        (new TeamService)->clearData();
+        Team::truncate();
 
         $teamA = Team::factory()->create(['division' => $division]);
         $teamB = Team::factory()->create(['division' => $division]);
