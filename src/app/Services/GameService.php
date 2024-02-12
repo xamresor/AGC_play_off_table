@@ -138,7 +138,6 @@ class GameService {
         $roundId = RoundService::getIdByName($roundName);
         $games = $this->getGameListByRoundId($roundId);
 
-        dd($games);
         foreach (iterator_to_array($games) as $game) {
             /** @var Game $game */
 
