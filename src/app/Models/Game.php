@@ -63,19 +63,13 @@ class Game extends Model
     {
         $teamA = Team::find($this->team1Id);
         $teamB = Team::find($this->team2Id);
-        $winner = ($this->team1Score > $this->team2Score)
-            ? $teamA->name
-            : $teamB->name;
-
-        if (empty($this->team1Score) && empty($this->team2Score)) {
-            $winner = '-';
-        }
+        $winner = Team::find($this->winnerId) ?? '-';
 
         return [
             'teamAName' => $teamA->name,
             'teamBName' => $teamB->name,
-            'score' => ($this->team1Score ?? '') . ':' . ($this->team2Score ?? ''),
-            'winnerName' => $winner
+            'score' => $this->getReadableScore(),
+            'winnerName' => $winner->name,
         ];
     }
 }

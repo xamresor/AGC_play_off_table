@@ -81,17 +81,17 @@ class GameService {
     public function playDivisionGames(string $division): void
     {
         $divisionTeamList = Team::where('division', $division)->get();
+        $divisionTeams = iterator_to_array($divisionTeamList);
+
         $teamsPlayed = [];
 
-        foreach (iterator_to_array($divisionTeamList) as $team1) {
+        foreach ($divisionTeams as $team1) {
             $teamsPlayed[] = $team1->id;
 
-            foreach (iterator_to_array($divisionTeamList) as $team2) {
-                if (in_array($team2->id, $teamsPlayed)) {
-                    continue;
+            foreach ($divisionTeams as $team2) {
+                if (!in_array($team2->id, $teamsPlayed)) {
+                    $this->playGame(RoundService::ROUND_NAME_DIVISION, $team1, $team2);
                 }
-
-                $this->playGame(RoundService::ROUND_NAME_DIVISION, $team1, $team2);
             }
         }
     }
@@ -132,7 +132,7 @@ class GameService {
     }
 
     //More beautiful solution will be if models(Game - Team) will be connected between each other
-    public function getReadableScoreRoundMap(string $roundName): array
+    public function generateReadableScoreMap(string $roundName): array
     {
         $map = [];
         $roundId = RoundService::getIdByName($roundName);

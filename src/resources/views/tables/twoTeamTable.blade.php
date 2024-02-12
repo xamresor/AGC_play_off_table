@@ -1,6 +1,5 @@
-<?php
-?>
 
+<!-- Table representing teams that played a game, along with the game score and the winner. -->
 <table class="teams small">
     <tbody>
         <tr>

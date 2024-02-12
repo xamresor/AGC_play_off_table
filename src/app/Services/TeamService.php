@@ -31,7 +31,7 @@ class TeamService {
     public function getDivisionResultsData(string $division): array
     {
 
-        $scoreMap = (new GameService())->getReadableScoreRoundMap(RoundService::ROUND_NAME_DIVISION);
+        $scoreMap = (new GameService())->generateReadableScoreMap(RoundService::ROUND_NAME_DIVISION);
         $divisionTeams = Team::all()->where('division', $division);
 
         return array_map(
